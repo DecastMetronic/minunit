@@ -147,9 +147,8 @@ static void (*minunit_teardown)(void) = NULL;
 		snprintf(minunit_last_message, MINUNIT_MESSAGE_LEN, "%s failed:\n\t%s:%d: %s", __func__, __FILE__, __LINE__, #test);\
 		minunit_status = 1;\
 		return;\
-	} else {\
-		printf(".");\
 	}\
+	printf(".");\
 )
 
 #define mu_fail(message) MU__SAFE_BLOCK(\
@@ -165,9 +164,8 @@ static void (*minunit_teardown)(void) = NULL;
 		snprintf(minunit_last_message, MINUNIT_MESSAGE_LEN, "%s failed:\n\t%s:%d: %s", __func__, __FILE__, __LINE__, message);\
 		minunit_status = 1;\
 		return;\
-	} else {\
-		printf(".");\
 	}\
+	printf(".");\
 )
 
 #define mu_assert_int_eq(expected, result) MU__SAFE_BLOCK(\
@@ -180,9 +178,8 @@ static void (*minunit_teardown)(void) = NULL;
 		snprintf(minunit_last_message, MINUNIT_MESSAGE_LEN, "%s failed:\n\t%s:%d: %d expected but was %d", __func__, __FILE__, __LINE__, minunit_tmp_e, minunit_tmp_r);\
 		minunit_status = 1;\
 		return;\
-	} else {\
-		printf(".");\
 	}\
+	printf(".");\
 )
 
 #define mu_assert_double_eq(expected, result) MU__SAFE_BLOCK(\
@@ -196,9 +193,8 @@ static void (*minunit_teardown)(void) = NULL;
 		snprintf(minunit_last_message, MINUNIT_MESSAGE_LEN, "%s failed:\n\t%s:%d: %.*g expected but was %.*g", __func__, __FILE__, __LINE__, minunit_significant_figures, minunit_tmp_e, minunit_significant_figures, minunit_tmp_r);\
 		minunit_status = 1;\
 		return;\
-	} else {\
-		printf(".");\
 	}\
+	printf(".");\
 )
 
 #define mu_assert_string_eq(expected, result) MU__SAFE_BLOCK(\
@@ -211,13 +207,12 @@ static void (*minunit_teardown)(void) = NULL;
 	if (!minunit_tmp_r) {\
 		minunit_tmp_r = "<null pointer>";\
 	}\
-	if(strcmp(minunit_tmp_e, minunit_tmp_r)) {\
+	if(strcmp(minunit_tmp_e, minunit_tmp_r) != 0) {\
 		snprintf(minunit_last_message, MINUNIT_MESSAGE_LEN, "%s failed:\n\t%s:%d: '%s' expected but was '%s'", __func__, __FILE__, __LINE__, minunit_tmp_e, minunit_tmp_r);\
 		minunit_status = 1;\
 		return;\
-	} else {\
-		printf(".");\
 	}\
+	printf(".");\
 )
 
 /*

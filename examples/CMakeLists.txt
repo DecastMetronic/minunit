@@ -1,0 +1,5 @@
+add_executable(asserts asserts.c)
+target_link_libraries(asserts minunit)
+if (GNU)
+    target_link_libraries(asserts m)
+endif()

@@ -1,0 +1,4 @@
+Checks: '-*,bugprone-*,clang-analyzer-*,readability-*'
+WarningsAsErrors: ''
+HeaderFilterRegex: ''
+FormatStyle: none

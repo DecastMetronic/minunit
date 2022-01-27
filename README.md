@@ -44,15 +44,15 @@ test_check failed:
 Finished in 0.00032524 seconds (real) 0.00017998 seconds (proc)
 ```
 
-Check out `minunit_example.c` to see a complete example. Compile with something
+Check out `examples/asserts.c` to see a complete example. Compile with something
 like:
 
+```sh
+mkdir build
+cd build
+cmake ..
+cmake --build .
 ```
-gcc minunit_example.c -lrt -lm -o minunit_example
-```
-
-Don't forget to add `-lrt` for the timer and `-lm` for linking the function `fabs`
-used in `mu_assert_double_eq`.
 
 ## Setup and teardown functions
 
@@ -76,6 +76,9 @@ equal or show their values as the error message
 `mu_assert_double_eq(expected, result)`: it will pass if the two values
 are almost equal or show their values as the error message. The value of
 `MINUNIT_EPSILON` sets the threshold to determine if the values are close enough.
+
+`mu_assert_string_eq(expected, result)`: it will pass if the two strings are
+equal or show their contents as the error message.
 
 ## Authors
 
