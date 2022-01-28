@@ -3,7 +3,8 @@
 static int foo = 0;
 static int bar = 0;
 static double dbar = 0.1;
-static const char* foostring = "Thisstring";
+static const char *foostring = "Thisstring";
+static const unsigned char foomem[] = {0xDE, 0xAD, 0xBE, 0xEF};
 
 void test_setup(void) {
 	foo = 7;
@@ -50,12 +51,22 @@ MU_TEST(test_fail) {
 	mu_fail("Fail now!");
 }
 
-MU_TEST(test_string_eq){
+MU_TEST(test_string_eq) {
 	mu_assert_string_eq("Thisstring", foostring);
 }
 
-MU_TEST(test_string_eq_fail){
+MU_TEST(test_string_eq_fail) {
 	mu_assert_string_eq("Thatstring", foostring);
+}
+
+MU_TEST(test_memory_eq) {
+	const int bar = 0xefbeadde;
+	mu_assert_memory_eq(&bar, foomem, sizeof(foomem));
+}
+
+MU_TEST(test_memory_eq_fail) {
+	const int bar = 0xde;
+	mu_assert_memory_eq(&bar, foomem, sizeof(foomem));
 }
 
 
@@ -75,6 +86,9 @@ MU_TEST_SUITE(test_suite) {
 	MU_RUN_TEST(test_string_eq);
 	MU_RUN_TEST(test_string_eq_fail);
 
+	MU_RUN_TEST(test_memory_eq);
+	MU_RUN_TEST(test_memory_eq_fail);
+
 	MU_RUN_TEST(test_fail);
 }
 
@@ -83,4 +97,3 @@ int main(int argc, char *argv[]) {
 	MU_REPORT();
 	return MU_EXIT_CODE;
 }
-

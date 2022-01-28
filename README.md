@@ -1,4 +1,4 @@
-## MinUnit
+# MinUnit
 
 Minunit is a minimal unit testing framework for C/C++ self-contained in a
 single header file.
@@ -62,23 +62,28 @@ declaration.
 
 ## Assertion types
 
-`mu_check(condition)`: will pass if the condition is evaluated to `true`, otherwise
-it will show the condition as the error message
+`mu_check(condition)`: will pass if the condition is evaluated to `true`,
+otherwise it will show the condition as the error message
 
 `mu_fail(message)`: will fail and show the message
 
-`mu_assert(condition, message)`: will pass if the condition is `true`, otherwise it
-will show the failed condition and the message
+`mu_assert(condition, message)`: will pass if the condition is `true`, otherwise
+it will show the failed condition and the message
 
 `mu_assert_int_eq(expected, result)`: it will pass if the two numbers are
 equal or show their values as the error message
 
 `mu_assert_double_eq(expected, result)`: it will pass if the two values
 are almost equal or show their values as the error message. The value of
-`MINUNIT_EPSILON` sets the threshold to determine if the values are close enough.
+`MINUNIT_EPSILON` sets the threshold to determine if the values are close
+enough.
 
 `mu_assert_string_eq(expected, result)`: it will pass if the two strings are
 equal or show their contents as the error message.
+
+`mu_assert_memory_eq(expected, result, length)`: it will pass if the two memory
+regions with specified length are equal or show an offset where they differ as
+the error message.
 
 ## Authors
 

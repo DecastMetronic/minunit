@@ -62,6 +62,7 @@
 #error "Unable to define timers for an unknown OS."
 #endif
 
+#include <stddef.h>
 #include <stdio.h>
 #include <math.h>
 
@@ -198,8 +199,8 @@ static void (*minunit_teardown)(void) = NULL;
 )
 
 #define mu_assert_string_eq(expected, result) MU__SAFE_BLOCK(\
-	const char* minunit_tmp_e = expected;\
-	const char* minunit_tmp_r = result;\
+	const char *minunit_tmp_e = expected;\
+	const char *minunit_tmp_r = result;\
 	minunit_assert++;\
 	if (!minunit_tmp_e) {\
 		minunit_tmp_e = "<null pointer>";\
@@ -213,6 +214,21 @@ static void (*minunit_teardown)(void) = NULL;
 		return;\
 	}\
 	printf(".");\
+)
+
+#define mu_assert_memory_eq(expected, result, length) MU__SAFE_BLOCK(\
+	const unsigned char *minunit_tmp_e = (const unsigned char *)expected;\
+	const unsigned char *minunit_tmp_r = (const unsigned char *)result;\
+	minunit_assert++;\
+  size_t i;\
+  for (i = 0; i < length; i++) {\
+      if ((minunit_tmp_e)[i] != (minunit_tmp_r)[i]) {\
+          snprintf(minunit_last_message, MINUNIT_MESSAGE_LEN, "%s failed:\n\t%s:%d: '0x%02x' expected but was '0x%02x' at offset %lu", __func__, __FILE__, __LINE__, (minunit_tmp_e)[i], (minunit_tmp_r)[i], i);\
+          minunit_status = 1;\
+          return;\
+      }\
+  }\
+  printf(".");\
 )
 
 /*
